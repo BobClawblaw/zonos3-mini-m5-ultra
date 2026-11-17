@@ -7,13 +7,13 @@ activation, cache and sum in fp32. Nothing is converted.
 
 It speaks in the release's 27 voices, clones a voice from a clip, and answers in WAV, PCM, FLAC, MP3, Opus or AAC.
 
-The engine branch (`zonos3-metal`, on top of ashhart/TensorFold#3720) is not pushed yet, so this recipe cannot be
-rebuilt from its pins by anyone else yet.
+The engine branch (`zonos3-metal`, on top of ashhart/TensorFold#3720 and its reply-format branch `zonos3-openai`)
+is not pushed yet, so this recipe cannot be rebuilt from its pins by anyone else yet.
 
 | What | Pin |
 | --- | --- |
 | Checkpoint | `Zyphra/ZONOS3-Mini` at `d2d142a86b1e6aeb4252679673c86ecd86177bf8` (Apache-2.0) |
-| Engine | BobClawblaw/TensorFold `zonos3-metal` at `d6f616ec4` (not pushed), Zig 0.17.0 |
+| Engine | BobClawblaw/TensorFold `zonos3-metal` at `796b1565e` (not pushed), Zig 0.17.0 |
 
 ## Serving
 
@@ -60,7 +60,7 @@ kHz).
 
 ## Measured
 
-All on one M5 Ultra (256 GB, macOS 27.2), the binary built from `d6f616ec4`.
+All on one M5 Ultra (256 GB, macOS 27.2), the binary built from `796b1565e`.
 
 ### Served, through the recipe harness
 
@@ -103,7 +103,7 @@ on the CPU over the same weights; the dumps and their commands are in the engine
 | SSL teacher, 18 captures, 999 rows | worst row's cosine 0.9999253 |
 | Clip to codes, one lane (145 frames) and four lanes (710 frames) | 1,450 of 1,450 and 7,100 of 7,100 codes equal |
 
-All 40 of the family's Metal kernels are registered with TensorFold's kernel contract (engine commit `630bcd248`,
+All 40 of the family's Metal kernels are registered with TensorFold's kernel contract (engine commit `e0299a671`,
 which changes no output): `tf-kernel-contract --only zonos3` on this Mac gives 41 of 41 registrations through gates 1
 to 4, all 41 planted controls red, and no launch-limit problems on M1 to M5.
 
