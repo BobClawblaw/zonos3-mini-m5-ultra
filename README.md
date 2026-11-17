@@ -7,13 +7,13 @@ activation, cache and sum in fp32. Nothing is converted.
 
 It speaks in the release's 27 voices, clones a voice from a clip, and answers in WAV, PCM, FLAC, MP3, Opus or AAC.
 
-The engine branch (`zonos3-metal`, on top of ashhart/TensorFold#3720 and its reply-format branch `zonos3-openai`)
-is not pushed yet, so this recipe cannot be rebuilt from its pins by anyone else yet.
+The engine branch (`zonos3-metal`, draft ashhart/TensorFold#3732) is stacked on #3720 and its reply-format branch
+`zonos3-openai`; it is not merged yet.
 
 | What | Pin |
 | --- | --- |
 | Checkpoint | `Zyphra/ZONOS3-Mini` at `d2d142a86b1e6aeb4252679673c86ecd86177bf8` (Apache-2.0) |
-| Engine | BobClawblaw/TensorFold `zonos3-metal` at `796b1565e` (not pushed), Zig 0.17.0 |
+| Engine | BobClawblaw/TensorFold `zonos3-metal` at `796b1565e` (served; head `52228c3dd`), Zig 0.17.0 |
 
 ## Serving
 
