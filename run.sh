@@ -11,7 +11,7 @@ PORT="${PORT:-30117}"
 UI_PORT="${UI_PORT:-30118}"
 UI_BIND="${UI_BIND:-127.0.0.1}"
 TF_SRC="${TF_SRC:-$PWD/engine}"
-[ -x "$TF_SRC/zig-out/native/bin/tensorfold-native" ] || { echo "no server yet: run ./setup.sh first" >&2; exit 1; }
+[ -x "$TF_SRC/zig-out/native/bin/tensorfold-native" ] || { echo "no server yet: build TF_SRC with zig build native -Doptimize=ReleaseFast (see README)" >&2; exit 1; }
 
 server="" page=""
 stop() {
