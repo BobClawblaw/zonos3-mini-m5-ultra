@@ -48,6 +48,11 @@ class Settings:
         return self.worktree / "zig-out" / "native" / "bin" / "tensorfold-native"
 
     @property
+    def built_textnorm(self) -> Path:
+        """libzyphra_textnorm (Zyphra's text normalization), which the server loads beside its binary (../lib)."""
+        return self.worktree / "zig-out" / "native" / "lib" / "libzyphra_textnorm.dylib"
+
+    @property
     def run_binary(self) -> Path:
         return self.path(self.binary) if self.binary else self.built_binary
 
@@ -111,4 +116,6 @@ def validate(s: Settings) -> list[str]:
         out.append("context must be 1025 to 32768")
     if not s.run_binary.exists():
         out.append(f"no engine binary at {s.run_binary}: python3 -m mac build")
+    elif not s.binary and not s.built_textnorm.exists():
+        out.append(f"no libzyphra_textnorm beside the engine ({s.built_textnorm}): python3 -m mac build (needs cargo)")
     return out

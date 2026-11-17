@@ -17,13 +17,14 @@ The engine branch (`zonos3-metal`, draft ashhart/TensorFold#3732) is stacked on 
 
 ## Quick start
 
-Needs an M5 Mac (M1 to M4 are untested), Python 3.11+, git, `hf` and [Zig 0.17.0](https://ziglang.org/download/).
+Needs an M5 Mac (M1 to M4 are untested), Python 3.11+, git, `hf`, [Zig 0.17.0](https://ziglang.org/download/) and
+Rust 1.88 or later (`cargo`, for the text normalization library).
 
 ```bash
 git clone https://github.com/ashhart/TensorFold ~/github/TensorFold   # mac build fetches the pin from the fork
 hf download Zyphra/ZONOS3-Mini --revision d2d142a86b1e6aeb4252679673c86ecd86177bf8 --local-dir ~/models/ZONOS3-Mini
 cp local.example.toml local.toml      # then set zig (and paths, if yours differ)
-python3 -m mac build                  # the pinned engine, under ~/.cache/zonos3-mini-m5
+python3 -m mac build                  # the pinned engine and libzyphra_textnorm, under ~/.cache/zonos3-mini-m5
 python3 -m mac up                     # http://127.0.0.1:30117/v1, model "zonos3-mini"
 python3 -m mac say "The harbor was quiet this morning." --voice rupert -o reply.wav
 ```
@@ -48,6 +49,10 @@ One request is spoken at a time; one that arrives meanwhile gets 503.
   (`brew install lame opus fdk-aac`); the others need nothing. `"stream": true` takes `pcm`, and a `pcm` reply names
   its rate in `X-Audio-Sample-Rate`.
 - **Sampling:** `temperature`, `top_p`, `top_k` (1 to 4096) and `seed`.
+- **Text normalization:** written text becomes its spoken form first ("$5" is read "five dollars") through
+  Zyphra's own [zyphra-textnorm](https://github.com/Zyphra/zyphra-textnorm) 0.2.0, which `mac build` builds with
+  cargo beside the engine. `language` picks its grammar (`en_us` by default, `en_gb`, `fr_fr`, `de`, `pt_br`, `ja`,
+  `cmn` and 37 more); `"text_normalization": false` speaks the text as typed.
 
 ## Settings
 
