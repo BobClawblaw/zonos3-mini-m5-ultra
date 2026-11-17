@@ -1,11 +1,30 @@
-# What this recipe serves and the engine it is built from.
+# The recipe's defaults. `local.toml` next to this file overrides them for one Mac (copy local.example.toml); an
+# environment variable of the same name in upper case overrides both (PORT=30120 python3 -m mac up).
 
 [model]
-repo = "Zyphra/ZONOS3-Mini"                         # the release as published (Apache-2.0); nothing is converted
-revision = "d2d142a86b1e6aeb4252679673c86ecd86177bf8"
+# Zyphra's release as published (bf16 backbone and teacher, fp32 codec; nothing is converted):
+# hf download Zyphra/ZONOS3-Mini --revision <model_revision> --local-dir <model_dir>
+model_repo = "Zyphra/ZONOS3-Mini"
+model_revision = "d2d142a86b1e6aeb4252679673c86ecd86177bf8"
+served_name = "zonos3-mini"
+model_dir = "~/models/ZONOS3-Mini"
 
 [engine]
-repo = "https://github.com/BobClawblaw/TensorFold.git"
-branch = "zonos3-metal"                             # the zonos3 family's Metal port, on top of ashhart/TensorFold#3720 and zonos3-openai
-sha = "796b1565e"                                   # draft PR ashhart/TensorFold#3732
-zig = "0.17.0"
+# TensorFold's native Metal engine with the zonos3 family's Metal port: a worktree of tensorfold_src at tensorfold_sha,
+# built by `python3 -m mac build` under tf_cache; `binary` names a built tensorfold-native instead
+tensorfold_src = "~/github/TensorFold"   # a clone holding tensorfold_sha (fetched from the fork's zonos3-metal if not)
+tensorfold_sha = "52228c3ddff3fe7ec02dd0ab5546cd18a715989a"   # zonos3-metal, draft ashhart/TensorFold#3732 (on #3720)
+zig = "zig"                      # Zig 0.17.0
+zig_cpu = "native"
+binary = ""
+
+[local]
+host = "127.0.0.1"
+port = 30117
+ui_port = 30118                  # python3 -m mac page: the engine's browser test page
+tf_cache = "~/.cache/zonos3-mini-m5"
+
+[serve]
+context = 4096                   # a request's window: prompt rows and frames (1025 to 32768); 2,000 frames a reply
+api_key = ""
+extra_args = ""

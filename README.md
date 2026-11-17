@@ -13,19 +13,31 @@ The engine branch (`zonos3-metal`, draft ashhart/TensorFold#3732) is stacked on 
 | What | Pin |
 | --- | --- |
 | Checkpoint | `Zyphra/ZONOS3-Mini` at `d2d142a86b1e6aeb4252679673c86ecd86177bf8` (Apache-2.0) |
-| Engine | BobClawblaw/TensorFold `zonos3-metal` at `796b1565e` (served; head `52228c3dd`), Zig 0.17.0 |
+| Engine | BobClawblaw/TensorFold `zonos3-metal` at `52228c3dd` (draft ashhart/TensorFold#3732), Zig 0.17.0 |
 
-## Serving
+## Quick start
 
-    MODELS=/path/to/models TF_SRC=/path/to/TensorFold ./serve.sh     # the API on 127.0.0.1:30117
-    MODELS=/path/to/models TF_SRC=/path/to/TensorFold ./run.sh       # the API and the engine's browser test page (:30118)
+Needs an M5 Mac (M1 to M4 are untested), Python 3.11+, git, `hf` and [Zig 0.17.0](https://ziglang.org/download/).
 
-`TF_SRC` is a TensorFold checkout of the pinned commit built with `zig build native -Doptimize=ReleaseFast`, and
-`MODELS` holds the release as `ZONOS3-Mini/` (`lm/`, `autoencoder/`, `registries/`, `gguf/voices/`,
-`speaker_encoders/`). One request is spoken at a time; one that arrives meanwhile gets 503.
+```bash
+git clone https://github.com/ashhart/TensorFold ~/github/TensorFold   # mac build fetches the pin from the fork
+hf download Zyphra/ZONOS3-Mini --revision d2d142a86b1e6aeb4252679673c86ecd86177bf8 --local-dir ~/models/ZONOS3-Mini
+cp local.example.toml local.toml      # then set zig (and paths, if yours differ)
+python3 -m mac build                  # the pinned engine, under ~/.cache/zonos3-mini-m5
+python3 -m mac up                     # http://127.0.0.1:30117/v1, model "zonos3-mini"
+python3 -m mac say "The harbor was quiet this morning." --voice rupert -o reply.wav
+```
+
+`python3 -m mac down|status|logs|command|validate` stop, inspect and check it; `python3 -m mac page` serves the
+engine's browser test page for the running server on `ui_port` (30118). To keep it running from login:
+`python3 -m mac launchd --host 127.0.0.1 --port 30120` writes `~/Library/LaunchAgents/com.zyphra.zonos3-mini.plist`
+(not loaded; `--host 0.0.0.0` serves the LAN), then `launchctl bootstrap gui/$(id -u)
+~/Library/LaunchAgents/com.zyphra.zonos3-mini.plist`.
 
     curl -s 127.0.0.1:30117/v1/audio/speech -H 'Content-Type: application/json' \
       -d '{"model": "zonos3-mini", "input": "The harbor was quiet this morning.", "voice": "rupert", "seed": 1}' -o reply.wav
+
+One request is spoken at a time; one that arrives meanwhile gets 503.
 
 - **Voices:** the release's 27 are listed at `/v1/voices`. OpenAI's stock names (`alloy`, `nova`, ...) speak in the
   default voice; `speaker_reference_codes` takes a voice's codes directly.
@@ -37,10 +49,28 @@ The engine branch (`zonos3-metal`, draft ashhart/TensorFold#3732) is stacked on 
   its rate in `X-Audio-Sample-Rate`.
 - **Sampling:** `temperature`, `top_p`, `top_k` (1 to 4096) and `seed`.
 
-### Kept running, and Hermes
+## Settings
 
-On the measured Mac the server runs as a LaunchAgent (`KeepAlive`, its own copy of the binary, `127.0.0.1:30120`,
-the same arguments as `serve.sh`), and Hermes speaks through it with its OpenAI provider:
+`recipe.toml` holds the defaults; `local.toml` overrides them for one Mac, and an environment variable of the same
+name in upper case overrides both (`PORT=30120 python3 -m mac up`).
+
+| setting | default | |
+|---|---|---|
+| `model_dir` | `~/models/ZONOS3-Mini` | the release as downloaded |
+| `tensorfold_src` | `~/github/TensorFold` | a TensorFold clone; `build` adds a worktree of the pin under `tf_cache` |
+| `binary` | | a built `tensorfold-native` to serve instead of building the pin |
+| `host`, `port` | 127.0.0.1, 30117 | where the API listens |
+| `ui_port` | 30118 | the test page (`python3 -m mac page`) |
+| `context` | 4096 | a request's window, prompt rows and frames (1025 to 32768); 2,000 frames (23 s) a reply |
+| `api_key` | | a key the server requires, if set |
+
+**Memory.** 3.57 GiB after the load at `context` 4096, 8.82 GiB once a clip has loaded the encoder (figures under
+Measured); `up` refuses to start with less than 9 GiB free.
+
+### Hermes
+
+On the measured Mac the server runs from the launchd unit on `127.0.0.1:30120`, and Hermes speaks through it with its
+OpenAI provider:
 
 ```yaml
 tts:
@@ -60,21 +90,21 @@ kHz).
 
 ## Measured
 
-All on one M5 Ultra (256 GB, macOS 27.2), the binary built from `796b1565e`.
+All on one M5 Ultra (256 GB, macOS 27.2), the binary `python3 -m mac build` makes from the pin (`52228c3dd`).
 
 ### Served, through the recipe harness
 
-`python3 -m harness run zonos3-mini-m5 --plan speech` (run `20261117-134557-speech`, files in `evidence/`): each
+`python3 -m harness run zonos3-mini-m5 --plan speech` (run `20261117-155328-speech`, files in `evidence/`): each
 case once after a server start, then twice whole and twice streamed.
 
 | Case | Audio | Whole | Streamed first byte | Repeats and streams identical |
 | --- | --- | --- | --- | --- |
-| passage (Rupert, seed 11) | 17.8 s | 0.93 s (19.1 times real time) | 0.07 s | yes |
+| passage (Rupert, seed 11) | 17.8 s | 0.94 s (18.9 times real time) | 0.07 s | yes |
 | short (default voice, seed 3) | 4.13 s | 0.25 s (16.7) | 0.06 s | yes |
-| second voice (Imogen, seed 5) | 5.13 s | 0.30 s (17.1) | 0.06 s | yes |
-| clone (the short reply as the clip, seed 4) | 5.13 s | 1.31 s (3.9) | 1.05 s | yes |
+| second voice (Imogen, seed 5) | 5.13 s | 0.30 s (17.0) | 0.06 s | yes |
+| clone (the short reply as the clip, seed 4) | 5.13 s | 1.33 to 1.36 s (3.9) | 1.07 s | yes |
 
-- **Clone:** its first request took 9.16 s, the clip encoder's load included. A clip is encoded whole before the
+- **Clone:** its first request took 8.84 s, the clip encoder's load included. A clip is encoded whole before the
   first frame, so its first streamed byte comes after the encoding.
 - **Busy:** three requests at once answered 200, 503, 503, and the spoken one equalled the reply spoken alone.
 - **Refusals:** an unknown voice, `top_k` 5000, a `ref_audio` that is no WAV, malformed `speaker_reference_codes` and
@@ -84,7 +114,10 @@ case once after a server start, then twice whole and twice streamed.
   (SNR 90.5 to 98.2 dB, the clone 93.1 dB): Metal drew the same codes.
 - **Memory:** 3,828,402,944 bytes (3.57 GiB) after the load at `--context 4096` and 2,000 frames a request, and
   9,471,914,240 bytes (8.82 GiB) with the clip encoder: each the figure the server admits in advance.
-- **Formats:** each of the six answered 200 with its type; the FLAC reply decodes to the `pcm` reply's bytes exactly.
+- **Formats:** MP3, Opus and FLAC each answered 200 with its type and repeated byte for byte; earlier, on `796b1565e`
+  (the same code), each of the six answered and the FLAC reply decoded to the `pcm` reply's bytes exactly.
+- **The same audio as before:** all four replies are byte-identical to those of `796b1565e`'s run, the build the
+  reference checks below were made on.
 - **Not measured:** word error rate (the plan's transcriber is not set up on this Mac), and the quality suite.
 
 ### The parts against the reference

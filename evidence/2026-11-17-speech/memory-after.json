@@ -1,11 +1,11 @@
 {
  "mac": {
-  "output": "System-wide memory free percentage: 93%\ntotal = 12288.00M  used = 10589.25M  free = 1698.75M  (encrypted)",
+  "output": "System-wide memory free percentage: 93%\ntotal = 11264.00M  used = 9631.38M  free = 1632.62M  (encrypted)",
   "available_gib": null,
   "exit": 0
  },
  "engine": {
-  "output": "{\"schema_version\": 1, \"context_window\": 4096, \"context_fitted\": false, \"process\": {\"source\": \"darwin_rusage_info_v4\", \"physical_footprint_bytes\": 9865059696, \"lifetime_peak_physical_footprint_bytes\": 9902054816}, \"device\": {\"active_bytes\": 9471914240, \"cache_bytes\": 0, \"peak_bytes\": 9471914240, \"peak_scope\": \"since_start_or_health_reset\"}}",
+  "output": "{\"schema_version\": 1, \"context_window\": 4096, \"context_fitted\": false, \"process\": {\"source\": \"darwin_rusage_info_v4\", \"physical_footprint_bytes\": 9871973792, \"lifetime_peak_physical_footprint_bytes\": 9921584592}, \"device\": {\"active_bytes\": 9471914240, \"cache_bytes\": 0, \"peak_bytes\": 9471914240, \"peak_scope\": \"since_start_or_health_reset\"}}",
   "available_gib": null,
   "exit": 0
  }
