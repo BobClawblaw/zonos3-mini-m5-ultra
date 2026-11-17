@@ -103,10 +103,13 @@ on the CPU over the same weights; the dumps and their commands are in the engine
 | SSL teacher, 18 captures, 999 rows | worst row's cosine 0.9999253 |
 | Clip to codes, one lane (145 frames) and four lanes (710 frames) | 1,450 of 1,450 and 7,100 of 7,100 codes equal |
 
+All 40 of the family's Metal kernels are registered with TensorFold's kernel contract (engine commit `630bcd248`,
+which changes no output): `tf-kernel-contract --only zonos3` on this Mac gives 41 of 41 registrations through gates 1
+to 4, all 41 planted controls red, and no launch-limit problems on M1 to M5.
+
 Greedy decoding runs at about 350 to 390 frames a second (23 to 26 times real time) in the tool; a 47 s clip encodes
 in 8.9 s. No part of the engine is tuned for speed.
 
 ## What this recipe does not do yet
 
-- The Metal kernel contract records for the family's kernels (needed before the engine PR).
 - Word error rate on this Mac.
