@@ -1,0 +1,87 @@
+{
+ "cases": {
+  "plain": {
+   "status": 200,
+   "first_request_s": 0.341,
+   "bytes": 364560,
+   "audio_s": 4.13,
+   "whole_s": [
+    0.261,
+    0.261
+   ],
+   "times_real_time": 15.8,
+   "stream_first_byte_s": [
+    0.057,
+    0.057
+   ],
+   "stream_s": [
+    0.261,
+    0.261
+   ],
+   "repeat_identical": true,
+   "stream_identical": true
+  }
+ },
+ "refusals": {
+  "unknown-language": {
+   "status": 400,
+   "message": "{\"error\": {\"message\": \"ZONOS3 request: unsupported language code 'xx'; supported: en_us, en_gb, fr_fr, de, es, it, pt_br, ja, cmn, ko, ar, bn, bg, cs, da, nl, fi, ka, el, gu, he, hi, hu, id, kn, ms, m"
+  }
+ },
+ "same": {
+  "dollars": {
+   "statuses": [
+    200,
+    200,
+    200
+   ],
+   "equal": true,
+   "other_differs": true
+  },
+  "year": {
+   "statuses": [
+    200,
+    200,
+    200
+   ],
+   "equal": true,
+   "other_differs": true
+  },
+  "address": {
+   "statuses": [
+    200,
+    200,
+    200
+   ],
+   "equal": true,
+   "other_differs": true
+  },
+  "german": {
+   "statuses": [
+    200,
+    200,
+    200
+   ],
+   "equal": true,
+   "other_differs": true
+  },
+  "portuguese": {
+   "statuses": [
+    200,
+    200,
+    200
+   ],
+   "equal": true,
+   "other_differs": true
+  },
+  "japanese": {
+   "statuses": [
+    200,
+    200,
+    200
+   ],
+   "equal": true,
+   "other_differs": true
+  }
+ }
+}

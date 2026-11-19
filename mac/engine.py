@@ -1,13 +1,14 @@
 """The engine: a worktree of the TensorFold checkout at the pinned commit, built under tf_cache (never in the
 checkout), and libzyphra_textnorm (text normalization) from Zyphra's zyphra-textnorm at the release the engine names,
-built with cargo into the lib folder the server loads from. The zonos3 Metal port is not on ashhart/TensorFold's main
+built with cargo into the lib folder the server loads from, and the publisher's steering bundle, LACI heads and
+short-text registry from its code repository. The zonos3 Metal port is not on ashhart/TensorFold's main
 yet, so a clone without the pin fetches it from the fork's branch."""
 
 import shutil
 import subprocess
 from pathlib import Path
 
-from .config import Settings
+from .config import LACI_DIR, SHORT_DIR, STEER_DIR, STEER_REPO, STEER_SHA, Settings
 
 # zyphra-textnorm's release the engine's text normalization loads (docs/recipes/zonos3-mini.md), and its commit
 TEXTNORM_TAG = "0.2.0"
@@ -60,7 +61,22 @@ def build_textnorm(s: Settings, rebuild: bool = False) -> Path:
     return s.built_textnorm
 
 
+def steering(s: Settings) -> Path | None:
+    """The publisher's steering bundle, LACI heads and short-text registry at their pinned commit: three folders of
+    its code repository (2 MB), nothing else of it."""
+    src = s.steer_src
+    fetched = (not s.steer or bool(s.steer_bundle) or s.bundle.exists()) and (not s.laci or (s.laci_heads.is_dir() and s.short_text.exists()))
+    if not fetched:
+        if not (src / ".git").exists():
+            src.parent.mkdir(parents=True, exist_ok=True)
+            _run(["git", "clone", "--filter=blob:none", "--no-checkout", "--sparse", STEER_REPO, str(src)])
+        _run(["git", "-C", str(src), "sparse-checkout", "set", STEER_DIR, LACI_DIR, SHORT_DIR])
+        _run(["git", "-C", str(src), "checkout", "--detach", STEER_SHA])
+    return s.bundle
+
+
 def build(s: Settings, rebuild: bool = False) -> Path:
     binary = build_engine(s, rebuild)
     build_textnorm(s, rebuild)
+    steering(s)
     return binary

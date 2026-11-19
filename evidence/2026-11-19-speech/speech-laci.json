@@ -1,0 +1,271 @@
+{
+ "cases": {
+  "watched": {
+   "status": 200,
+   "first_request_s": 1.073,
+   "bytes": 1569960,
+   "audio_s": 17.8,
+   "whole_s": [
+    0.967,
+    1.007
+   ],
+   "times_real_time": 18.4,
+   "stream_first_byte_s": [
+    0.14,
+    0.146
+   ],
+   "stream_s": [
+    0.973,
+    0.994
+   ],
+   "repeat_identical": true,
+   "stream_identical": true
+  },
+  "short": {
+   "status": 200,
+   "first_request_s": 0.105,
+   "bytes": 94080,
+   "audio_s": 1.07,
+   "whole_s": [
+    0.105,
+    0.106
+   ],
+   "times_real_time": 10.2,
+   "stream_first_byte_s": [
+    0.105,
+    0.107
+   ],
+   "stream_s": [
+    0.105,
+    0.107
+   ],
+   "repeat_identical": true,
+   "stream_identical": true
+  },
+  "short-off": {
+   "status": 200,
+   "first_request_s": 0.096,
+   "bytes": 76440,
+   "audio_s": 0.87,
+   "whole_s": [
+    0.096,
+    0.097
+   ],
+   "times_real_time": 9.0,
+   "stream_first_byte_s": [
+    0.058,
+    0.058
+   ],
+   "stream_s": [
+    0.097,
+    0.097
+   ],
+   "repeat_identical": true,
+   "stream_identical": true
+  },
+  "pause": {
+   "status": 200,
+   "first_request_s": 0.195,
+   "bytes": 241080,
+   "audio_s": 2.73,
+   "whole_s": [
+    0.192,
+    0.193
+   ],
+   "times_real_time": 14.2,
+   "stream_first_byte_s": [
+    0.059,
+    0.059
+   ],
+   "stream_s": [
+    0.192,
+    0.193
+   ],
+   "repeat_identical": true,
+   "stream_identical": true
+  },
+  "start": {
+   "status": 200,
+   "first_request_s": 0.16,
+   "bytes": 176400,
+   "audio_s": 2.0,
+   "whole_s": [
+    0.16,
+    0.161
+   ],
+   "times_real_time": 12.5,
+   "stream_first_byte_s": [
+    0.055,
+    0.056
+   ],
+   "stream_s": [
+    0.162,
+    0.162
+   ],
+   "repeat_identical": true,
+   "stream_identical": true
+  },
+  "phones": {
+   "status": 200,
+   "first_request_s": 0.214,
+   "bytes": 282240,
+   "audio_s": 3.2,
+   "whole_s": [
+    0.212,
+    0.215
+   ],
+   "times_real_time": 15.1,
+   "stream_first_byte_s": [
+    0.059,
+    0.06
+   ],
+   "stream_s": [
+    0.215,
+    0.217
+   ],
+   "repeat_identical": true,
+   "stream_identical": true
+  },
+  "follow": {
+   "status": 200,
+   "first_request_s": 0.297,
+   "bytes": 464520,
+   "audio_s": 5.27,
+   "whole_s": [
+    0.297,
+    0.298
+   ],
+   "times_real_time": 17.7,
+   "stream_first_byte_s": [
+    0.033,
+    0.034
+   ],
+   "stream_s": [
+    0.3,
+    0.301
+   ],
+   "repeat_identical": true,
+   "stream_identical": true
+  },
+  "follow-laci": {
+   "status": 200,
+   "first_request_s": 0.299,
+   "bytes": 464520,
+   "audio_s": 5.27,
+   "whole_s": [
+    0.296,
+    0.298
+   ],
+   "times_real_time": 17.8,
+   "stream_first_byte_s": [
+    0.093,
+    0.093
+   ],
+   "stream_s": [
+    0.296,
+    0.299
+   ],
+   "repeat_identical": true,
+   "stream_identical": true
+  },
+  "duration": {
+   "status": 200,
+   "first_request_s": 0.436,
+   "bytes": 370440,
+   "audio_s": 4.2,
+   "whole_s": [
+    0.436,
+    0.438
+   ],
+   "times_real_time": 9.6,
+   "stream_first_byte_s": [
+    0.376,
+    0.38
+   ],
+   "stream_s": [
+    0.436,
+    0.44
+   ],
+   "repeat_identical": true,
+   "stream_identical": true
+  }
+ },
+ "refusals": {
+  "laci-with-guidance": {
+   "status": 400,
+   "message": "{\"error\": {\"message\": \"ZONOS3 request: LACI needs speaker_cfg_scale = controls_cfg_scale = 1\", \"type\": \"invalid_request_error\"}}"
+  },
+  "start-marker-not-first": {
+   "status": 400,
+   "message": "{\"error\": {\"message\": \"ZONOS3 request: the start marker (U+E002) must be the first character of the text, once\", \"type\": \"invalid_request_error\"}}"
+  },
+  "pause-marker-out-of-range": {
+   "status": 400,
+   "message": "{\"error\": {\"message\": \"ZONOS3 request: pause marker U+E009 is outside the 4 pause buckets\", \"type\": \"invalid_request_error\"}}"
+  },
+  "group-not-closed": {
+   "status": 400,
+   "message": "{\"error\": {\"message\": \"ZONOS3 request: unbalanced or empty pronunciation group\", \"type\": \"invalid_request_error\"}}"
+  },
+  "phone-outside-the-inventory": {
+   "status": 400,
+   "message": "{\"error\": {\"message\": \"ZONOS3 request: a pronunciation group holds U+4E2D, which is outside the phone inventory\", \"type\": \"invalid_request_error\"}}"
+  },
+  "short-text-bad-value": {
+   "status": 400,
+   "message": "{\"error\": {\"message\": \"ZONOS3 request: short_text must be \\\"auto\\\" or \\\"off\\\"\", \"type\": \"invalid_request_error\"}}"
+  },
+  "follow-bad-value": {
+   "status": 400,
+   "message": "{\"error\": {\"message\": \"ZONOS3 request: control_span_follow must be \\\"rate\\\" or \\\"reading\\\"\", \"type\": \"invalid_request_error\"}}"
+  },
+  "duration-without-laci": {
+   "status": 400,
+   "message": "{\"error\": {\"message\": \"ZONOS3 request: A LACI duration target needs laci=true\", \"type\": \"invalid_request_error\"}}"
+  },
+  "duration-past-the-budget": {
+   "status": 400,
+   "message": "{\"error\": {\"message\": \"ZONOS3 request: duration_seconds must be above 0 and at most 133.33 (the frame budget)\", \"type\": \"invalid_request_error\"}}"
+  },
+  "follow-lag-out-of-range": {
+   "status": 400,
+   "message": "{\"error\": {\"message\": \"ZONOS3 request: control_span_lag must be from -4 through 8 tokens\", \"type\": \"invalid_request_error\"}}"
+  }
+ },
+ "same": {
+  "start-immediately-is-the-start-marker": {
+   "statuses": [
+    200,
+    200,
+    200
+   ],
+   "equal": true,
+   "other_differs": true
+  },
+  "laci-false-is-off": {
+   "statuses": [
+    200,
+    200
+   ],
+   "equal": true
+  },
+  "follow-gate-defaults": {
+   "statuses": [
+    200,
+    200,
+    200
+   ],
+   "equal": true,
+   "other_differs": true
+  },
+  "short-text-auto-is-the-default": {
+   "statuses": [
+    200,
+    200,
+    200
+   ],
+   "equal": true,
+   "other_differs": true
+  }
+ }
+}

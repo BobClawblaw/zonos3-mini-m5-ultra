@@ -1,0 +1,194 @@
+{
+ "cases": {
+  "plain": {
+   "status": 200,
+   "first_request_s": 0.412,
+   "bytes": 476280,
+   "audio_s": 5.4,
+   "whole_s": [
+    0.33,
+    0.333
+   ],
+   "times_real_time": 16.4,
+   "stream_first_byte_s": [
+    0.059,
+    0.06
+   ],
+   "stream_s": [
+    0.331,
+    0.333
+   ],
+   "repeat_identical": true,
+   "stream_identical": true
+  },
+  "steered": {
+   "status": 200,
+   "first_request_s": 0.338,
+   "bytes": 488040,
+   "audio_s": 5.53,
+   "whole_s": [
+    0.337,
+    0.338
+   ],
+   "times_real_time": 16.4,
+   "stream_first_byte_s": [
+    0.06,
+    0.06
+   ],
+   "stream_s": [
+    0.339,
+    0.34
+   ],
+   "repeat_identical": true,
+   "stream_identical": true
+  },
+  "embedding": {
+   "status": 200,
+   "first_request_s": 0.29,
+   "bytes": 458640,
+   "audio_s": 5.2,
+   "whole_s": [
+    0.291,
+    0.293
+   ],
+   "times_real_time": 17.9,
+   "stream_first_byte_s": [
+    0.032,
+    0.033
+   ],
+   "stream_s": [
+    0.289,
+    0.292
+   ],
+   "repeat_identical": true,
+   "stream_identical": true
+  },
+  "reshaped": {
+   "status": 200,
+   "first_request_s": 0.276,
+   "bytes": 429240,
+   "audio_s": 4.87,
+   "whole_s": [
+    0.273,
+    0.276
+   ],
+   "times_real_time": 17.8,
+   "stream_first_byte_s": [
+    0.033,
+    0.033
+   ],
+   "stream_s": [
+    0.276,
+    0.278
+   ],
+   "repeat_identical": true,
+   "stream_identical": true
+  },
+  "span": {
+   "status": 200,
+   "first_request_s": 0.296,
+   "bytes": 464520,
+   "audio_s": 5.27,
+   "whole_s": [
+    0.295,
+    0.299
+   ],
+   "times_real_time": 17.9,
+   "stream_first_byte_s": [
+    0.033,
+    0.034
+   ],
+   "stream_s": [
+    0.299,
+    0.301
+   ],
+   "repeat_identical": true,
+   "stream_identical": true
+  },
+  "guided": {
+   "status": 200,
+   "first_request_s": 0.308,
+   "bytes": 441000,
+   "audio_s": 5.0,
+   "whole_s": [
+    0.307,
+    0.31
+   ],
+   "times_real_time": 16.3,
+   "stream_first_byte_s": [
+    0.04,
+    0.04
+   ],
+   "stream_s": [
+    0.305,
+    0.308
+   ],
+   "repeat_identical": true,
+   "stream_identical": true
+  }
+ },
+ "refusals": {
+  "control-unknown": {
+   "status": 400,
+   "message": "{\"error\": {\"message\": \"ZONOS3 request: unknown control 'mood.nope'; see /v1/audio/controls\", \"type\": \"invalid_request_error\"}}"
+  },
+  "voice-control-on-a-reference-voice": {
+   "status": 400,
+   "message": "{\"error\": {\"message\": \"ZONOS3 request: control 'identity.age' moves the speaker embedding and needs a voice by embedding (speaker_mode \\\"embedding\\\")\", \"type\": \"invalid_request_error\"}}"
+  },
+  "span-outside-the-text": {
+   "status": 400,
+   "message": "{\"error\": {\"message\": \"ZONOS3 request: control span [5, 9) is outside the text (0..1)\", \"type\": \"invalid_request_error\"}}"
+  },
+  "two-guidances": {
+   "status": 400,
+   "message": "{\"error\": {\"message\": \"ZONOS3 request: speaker_cfg_scale and controls_cfg_scale cannot be combined: a request has one guidance twin\", \"type\": \"invalid_request_error\"}}"
+  },
+  "span-lead-out-of-range": {
+   "status": 400,
+   "message": "{\"error\": {\"message\": \"ZONOS3 request: control_span_lead must be from 0 through 8 tokens\", \"type\": \"invalid_request_error\"}}"
+  },
+  "hold-above-one": {
+   "status": 400,
+   "message": "{\"error\": {\"message\": \"ZONOS3 request: steer_hold must be from 0 through 1, and steer_onset_seconds and steer_ramp_seconds finite and not negative\", \"type\": \"invalid_request_error\"}}"
+  }
+ },
+ "same": {
+  "dose-zero-is-off": {
+   "statuses": [
+    200,
+    200,
+    200
+   ],
+   "equal": true,
+   "other_differs": true
+  },
+  "controls-guidance-one-is-off": {
+   "statuses": [
+    200,
+    200,
+    200
+   ],
+   "equal": true,
+   "other_differs": true
+  },
+  "span-rate-one-is-the-default": {
+   "statuses": [
+    200,
+    200,
+    200
+   ],
+   "equal": true,
+   "other_differs": true
+  },
+  "hold-one-on-an-exempt-control-changes-nothing": {
+   "statuses": [
+    200,
+    200,
+    200
+   ],
+   "equal": true,
+   "other_differs": true
+  }
+ }
+}

@@ -1,0 +1,235 @@
+{
+ "cases": {
+  "passage": {
+   "status": 200,
+   "first_request_s": 1.052,
+   "bytes": 1569960,
+   "audio_s": 17.8,
+   "whole_s": [
+    0.976,
+    0.976
+   ],
+   "times_real_time": 18.2,
+   "stream_first_byte_s": [
+    0.068,
+    0.068
+   ],
+   "stream_s": [
+    0.981,
+    0.981
+   ],
+   "repeat_identical": true,
+   "stream_identical": true
+  },
+  "short": {
+   "status": 200,
+   "first_request_s": 0.262,
+   "bytes": 364560,
+   "audio_s": 4.13,
+   "whole_s": [
+    0.261,
+    0.261
+   ],
+   "times_real_time": 15.8,
+   "stream_first_byte_s": [
+    0.057,
+    0.057
+   ],
+   "stream_s": [
+    0.262,
+    0.262
+   ],
+   "repeat_identical": true,
+   "stream_identical": true
+  },
+  "guided": {
+   "status": 200,
+   "first_request_s": 0.326,
+   "bytes": 429240,
+   "audio_s": 4.87,
+   "whole_s": [
+    0.326,
+    0.326
+   ],
+   "times_real_time": 14.9,
+   "stream_first_byte_s": [
+    0.066,
+    0.066
+   ],
+   "stream_s": [
+    0.326,
+    0.326
+   ],
+   "repeat_identical": true,
+   "stream_identical": true
+  },
+  "rate": {
+   "status": 200,
+   "first_request_s": 0.33,
+   "bytes": 476280,
+   "audio_s": 5.4,
+   "whole_s": [
+    0.328,
+    0.328
+   ],
+   "times_real_time": 16.5,
+   "stream_first_byte_s": [
+    0.059,
+    0.059
+   ],
+   "stream_s": [
+    0.331,
+    0.331
+   ],
+   "repeat_identical": true,
+   "stream_identical": true
+  },
+  "clone": {
+   "status": 200,
+   "first_request_s": 8.771,
+   "bytes": 452760,
+   "audio_s": 5.13,
+   "whole_s": [
+    1.203,
+    1.203
+   ],
+   "times_real_time": 4.3,
+   "stream_first_byte_s": [
+    0.964,
+    0.964
+   ],
+   "stream_s": [
+    1.22,
+    1.22
+   ],
+   "repeat_identical": true,
+   "stream_identical": true
+  },
+  "guided-clone": {
+   "status": 200,
+   "first_request_s": 1.111,
+   "bytes": 235200,
+   "audio_s": 2.67,
+   "whole_s": [
+    1.111,
+    1.111
+   ],
+   "times_real_time": 2.4,
+   "stream_first_byte_s": [
+    0.954,
+    0.954
+   ],
+   "stream_s": [
+    1.094,
+    1.094
+   ],
+   "repeat_identical": true,
+   "stream_identical": true
+  }
+ },
+ "refusals": {},
+ "busy": {
+  "statuses": [
+   200,
+   200,
+   200,
+   200,
+   503,
+   503
+  ],
+  "identical": 4
+ },
+ "together": [
+  {
+   "cases": [
+    "passage",
+    "short",
+    "guided",
+    "rate"
+   ],
+   "statuses": [
+    200,
+    200,
+    200,
+    200
+   ],
+   "identical": 4,
+   "audio_s": 32.2,
+   "wall_s": 1.475,
+   "times_real_time": 21.8,
+   "slowest_s": 1.475
+  },
+  {
+   "cases": [
+    "clone",
+    "guided-clone",
+    "passage",
+    "short"
+   ],
+   "statuses": [
+    200,
+    200,
+    200,
+    200
+   ],
+   "identical": 4,
+   "audio_s": 29.73,
+   "wall_s": 3.229,
+   "times_real_time": 9.2,
+   "slowest_s": 3.227
+  },
+  {
+   "cases": [
+    "guided",
+    "clone",
+    "rate",
+    "guided-clone"
+   ],
+   "statuses": [
+    200,
+    200,
+    200,
+    200
+   ],
+   "identical": 4,
+   "audio_s": 18.07,
+   "wall_s": 2.633,
+   "times_real_time": 6.9,
+   "slowest_s": 2.632
+  },
+  {
+   "cases": [
+    "passage",
+    "passage",
+    "passage",
+    "passage"
+   ],
+   "statuses": [
+    200,
+    200,
+    200,
+    200
+   ],
+   "identical": 4,
+   "audio_s": 71.2,
+   "wall_s": 2.402,
+   "times_real_time": 29.6,
+   "slowest_s": 2.401
+  },
+  {
+   "cases": [
+    "passage",
+    "passage"
+   ],
+   "statuses": [
+    200,
+    200
+   ],
+   "identical": 2,
+   "audio_s": 35.6,
+   "wall_s": 1.466,
+   "times_real_time": 24.3,
+   "slowest_s": 1.466
+  }
+ ]
+}

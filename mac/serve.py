@@ -10,8 +10,9 @@ from pathlib import Path
 
 from .config import Settings
 
-# what the server admits at --context 4096 with the clip encoder loaded (9,471,914,240 bytes), rounded up
-NEED_GIB = 9
+# what the server admits at --context 4096 and parallel 4 with every part loaded: 4,727,824,128 bytes at the start,
+# then on request the clip encoder (5,643,511,296), the full_mr decoder (7,116,380,416) and the aligner (2,383,462,404)
+NEED_GIB = 19
 
 
 def health(s: Settings, timeout: float = 3) -> dict | None:
@@ -48,7 +49,7 @@ def free_gib() -> float:
 def memory_check(s: Settings) -> None:
     have = free_gib()
     if have < NEED_GIB:
-        raise SystemExit(f"{have:.0f} GiB free, the server needs {NEED_GIB} with the clip encoder: stop other models first")
+        raise SystemExit(f"{have:.0f} GiB free, the server needs {NEED_GIB} with every part loaded: stop other models first")
 
 
 def wait_ready(s: Settings, proc: subprocess.Popen, limit: float = 300) -> None:

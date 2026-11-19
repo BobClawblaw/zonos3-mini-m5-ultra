@@ -1,0 +1,167 @@
+{
+ "cases": {
+  "plain": {
+   "status": 200,
+   "first_request_s": 0.41,
+   "bytes": 476280,
+   "audio_s": 5.4,
+   "whole_s": [
+    0.329,
+    0.331
+   ],
+   "times_real_time": 16.4,
+   "stream_first_byte_s": [
+    0.06,
+    0.06
+   ],
+   "stream_s": [
+    0.332,
+    0.333
+   ],
+   "repeat_identical": true,
+   "stream_identical": true
+  },
+  "guided": {
+   "status": 200,
+   "first_request_s": 0.349,
+   "bytes": 464520,
+   "audio_s": 5.27,
+   "whole_s": [
+    0.349,
+    0.351
+   ],
+   "times_real_time": 15.1,
+   "stream_first_byte_s": [
+    0.067,
+    0.067
+   ],
+   "stream_s": [
+    0.351,
+    0.353
+   ],
+   "repeat_identical": true,
+   "stream_identical": true
+  },
+  "slow": {
+   "status": 200,
+   "first_request_s": 0.382,
+   "bytes": 564480,
+   "audio_s": 6.4,
+   "whole_s": [
+    0.376,
+    0.382
+   ],
+   "times_real_time": 17.0,
+   "stream_first_byte_s": [
+    0.059,
+    0.06
+   ],
+   "stream_s": [
+    0.383,
+    0.386
+   ],
+   "repeat_identical": true,
+   "stream_identical": true
+  },
+  "fast": {
+   "status": 200,
+   "first_request_s": 0.23,
+   "bytes": 299880,
+   "audio_s": 3.4,
+   "whole_s": [
+    0.228,
+    0.229
+   ],
+   "times_real_time": 14.9,
+   "stream_first_byte_s": [
+    0.06,
+    0.06
+   ],
+   "stream_s": [
+    0.228,
+    0.229
+   ],
+   "repeat_identical": true,
+   "stream_identical": true
+  },
+  "full-decoder": {
+   "status": 200,
+   "first_request_s": 8.574,
+   "bytes": 476280,
+   "audio_s": 5.4,
+   "whole_s": [
+    0.661,
+    0.663
+   ],
+   "times_real_time": 8.2,
+   "stream_first_byte_s": [
+    0.079,
+    0.079
+   ],
+   "stream_s": [
+    0.661,
+    0.666
+   ],
+   "repeat_identical": true,
+   "stream_identical": true
+  }
+ },
+ "refusals": {
+  "guidance-negative": {
+   "status": 400,
+   "message": "{\"error\": {\"message\": \"ZONOS3 request: speaker_cfg_scale must be finite and not negative\", \"type\": \"invalid_request_error\"}}"
+  },
+  "condition-unknown-name": {
+   "status": 400,
+   "message": "{\"error\": {\"message\": \"ZONOS3 request: condition_buckets: unknown condition name 'pitch'; expected loudness, fmax, speaking_rate\", \"type\": \"invalid_request_error\"}}"
+  },
+  "condition-bucket-too-large": {
+   "status": 400,
+   "message": "{\"error\": {\"message\": \"ZONOS3 request: condition_buckets[loudness] must be an integer from 0 through 9, or 10 (unknown)\", \"type\": \"invalid_request_error\"}}"
+  },
+  "decoder-unknown": {
+   "status": 400,
+   "message": "{\"error\": {\"message\": \"Unknown decoder 'nope'; this server serves: keep2_plain, full_mr.\", \"type\": \"invalid_request_error\"}}"
+  },
+  "condition-value-not-a-number": {
+   "status": 400,
+   "message": "{\"error\": {\"message\": \"ZONOS3 request: condition_values[fmax] must be a number\", \"type\": \"invalid_request_error\"}}"
+  }
+ },
+ "same": {
+  "value-is-its-bucket": {
+   "statuses": [
+    200,
+    200,
+    200
+   ],
+   "equal": true,
+   "other_differs": true
+  },
+  "unknown-buckets-are-none": {
+   "statuses": [
+    200,
+    200
+   ],
+   "equal": true
+  },
+  "default-decoder-is-keep2": {
+   "statuses": [
+    200,
+    200,
+    200
+   ],
+   "equal": true,
+   "other_differs": true
+  },
+  "guidance-one-is-off": {
+   "statuses": [
+    200,
+    200,
+    200
+   ],
+   "equal": true,
+   "other_differs": true
+  }
+ }
+}

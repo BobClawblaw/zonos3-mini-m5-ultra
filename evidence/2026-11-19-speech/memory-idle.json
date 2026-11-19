@@ -1,0 +1,12 @@
+{
+ "mac": {
+  "output": "System-wide memory free percentage: 94%\ntotal = 8192.00M  used = 6855.88M  free = 1336.12M  (encrypted)",
+  "available_gib": null,
+  "exit": 0
+ },
+ "engine": {
+  "output": "{\"schema_version\": 1, \"context_window\": 4096, \"context_fitted\": false, \"process\": {\"source\": \"darwin_rusage_info_v4\", \"physical_footprint_bytes\": 4846882872, \"lifetime_peak_physical_footprint_bytes\": 4846964792}, \"device\": {\"active_bytes\": 4727824128, \"cache_bytes\": 0, \"peak_bytes\": 4727824128, \"peak_scope\": \"since_start_or_health_reset\"}}",
+  "available_gib": null,
+  "exit": 0
+ }
+}
