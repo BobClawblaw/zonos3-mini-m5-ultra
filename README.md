@@ -137,8 +137,10 @@ streamed, and every reply repeats byte for byte and streams the same bytes.
 - **The same requests on the RTX 5090:** 31 of the 32 replies both machines' evidence holds have the same length as
   the [5090 recipe](https://github.com/BobClawblaw/zonos3-mini-rtx-5090)'s and 16-bit samples within 3 of it (SNR
   91.1 to 100.1 dB). The other, the `by-span` edit, has the same length and the same plan but differs from 1.5 s
-  on, inside the edited span (36.6 dB): it is a seeded sampled edit of a clip the server spoke itself, and it repeats
-  byte for byte on the Mac.
+  on, inside the edited span (36.6 dB). The cause is its input: it edits a clip each server spoke itself, and the two
+  clips differ by at most one sample level, which is enough to change the clip's codes and so the seeded draw. Sent the
+  5090's clip, the Mac gives the 5090's edit within 2 sample levels (92.9 dB); sent its own clip, it gives its own edit
+  byte for byte.
 - **Not measured:** word error rate (the plans' transcriber is not set up on this Mac), and the quality suite.
 
 ### The parts against the reference
